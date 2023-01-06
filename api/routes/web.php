@@ -2,12 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\zsaluzasController;
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,12 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', [UserController::class, 'list']);
+Route::get('/api', function () {
+    return view('welcome');
+});
 
-Route::get('/zsaluzas', [zsaluzasController::class, 'zsaluzas']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::post('/import_user', [UserController::class, 'import_user'])->name('import_user');
-
-Route::get('/export_user', [UserController::class, 'export_user'])->name('export_user');
-
-Route::post('/import_zsaluzas', [zsaluzasController::class, 'import_zsaluzas'])->name('import_zsaluzas');
+require __DIR__.'/auth.php';

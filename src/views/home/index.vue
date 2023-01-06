@@ -379,6 +379,9 @@ import VueScrollTo from "vue-scrollto";
 import HomeLayout from "../../layouts/HomeLayout";
 import GlideComponent from "../../components/Carousel/GlideComponent";
 import { adminRoot, buyUrl } from "../../constants/config";
+import router from "../../router";
+
+const valami=0;
 const slideSettings = {
   type: "carousel",
   gap: 30,
@@ -616,4 +619,9 @@ export default {
     window.removeEventListener("click", this.onWindowClick);
   }
 };
+
+if (valami==0) {
+  console.log("valami");
+  router.push('/user/login');
+}
 </script>

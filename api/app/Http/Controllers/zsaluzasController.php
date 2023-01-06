@@ -13,7 +13,7 @@ class zsaluzasController extends Controller
     {
         $zsaluzas = zsaluzas::get();
 
-        return view('zsaluzas',['zsaluzas' => $zsaluzas]);
+        return response()->json($zsaluzas);
     }
 
     public function import_zsaluzas(Request $request){

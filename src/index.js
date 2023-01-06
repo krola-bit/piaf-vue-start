@@ -4,6 +4,7 @@ import "./assets/css/vendor/bootstrap.min.css";
 import "./assets/css/vendor/bootstrap.rtl.only.min.css";
 import 'video.js/dist/video-js.css'
 
+
 import { getThemeColor } from "./utils";
 /*  if you want use single color theme
 

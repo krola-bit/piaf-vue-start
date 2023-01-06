@@ -27,6 +27,11 @@ import VueScrollTo from 'vue-scrollto'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getCurrentLanguage } from './utils'
+import axios from 'axios'
+
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);

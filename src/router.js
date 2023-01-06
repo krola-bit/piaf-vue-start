@@ -3,8 +3,13 @@ import VueRouter from "vue-router";
 import AuthGuard from "./utils/auth.guard";
 import { adminRoot } from "./constants/config";
 import { UserRole } from "./utils/auth.roles";
+import axios from "axios";
+
 
 Vue.use(VueRouter);
+
+
+
 
 const routes = [
   {
@@ -14,13 +19,20 @@ const routes = [
   },
   {
     path: adminRoot,
+    
+
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
     redirect: `${adminRoot}/basis`,
     meta: { loginRequired: true },
+
     /*
    define with Authorization :
    meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
    */
+
+   
+
+
     children: [
       {
         path: "basis",
@@ -97,4 +109,7 @@ const router = new VueRouter({
   mode: "history",
 });
 router.beforeEach(AuthGuard);
+
+
+  
 export default router;

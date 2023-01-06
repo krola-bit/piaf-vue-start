@@ -1,10 +1,13 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { currentUser, isAuthGuardActive } from '../../constants/config'
+import { adminRoot, currentUser, isAuthGuardActive } from '../../constants/config'
 import { setCurrentUser, getCurrentUser } from '../../utils'
+import axios from 'axios'
+import router from '../../router'
 
 export default {
   state: {
+    alapZsalu:[],
     currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
     loginError: null,
     processing: false,
@@ -17,10 +20,12 @@ export default {
     loginError: state => state.loginError,
     forgotMailSuccess: state => state.forgotMailSuccess,
     resetPasswordSuccess: state => state.resetPasswordSuccess,
+    setZsalu: state => state.alapZsalu
   },
   mutations: {
     setUser(state, payload) {
-      state.currentUser = payload
+      state.currentUser.id = payload.id
+      state.currentUser.title = payload.title
       state.processing = false
       state.loginError = null
     },
@@ -52,35 +57,56 @@ export default {
     },
     clearError(state) {
       state.loginError = null
+    },
+    setZsalu(state, payload) {
+      state.alapZsalu = payload
     }
   },
   actions: {
     login({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true)
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(payload.email, payload.password)
-        .then(
-          user => {
-            const item = { uid: user.user.uid, ...currentUser }
-            setCurrentUser(item)
-            commit('setUser', item)
-          },
-          err => {
-            setCurrentUser(null);
-            commit('setError', err.message)
-            setTimeout(() => {
-              commit('clearError')
-            }, 3000)
-          }
-        )
-    },
-    forgotPassword({ commit }, payload) {
-      commit('clearError')
+      console.log(payload)
+      console.log("email ", payload.email)
+      console.log("password ", payload.password)
+
+      axios.post('http://localhost/monolit/api/public/api/login', {
+        email: payload.email,
+        password: payload.password
+      }).then(response => {
+       
+        const item = { 
+          id:response.data.data.user.id,
+           title:response.data.data.user.name,}
+        
+
+        commit('setUser', item)
+
+      
+
+        
+      }).catch(error => {
+        console.log(error)
+        setCurrentUser(null);
+        commit('setError', error.message)
+        setTimeout(() => {
+          commit('clearError')
+        }, 3000)
+      })
+      
+      axios.get('http://localhost/monolit/api/public/api/zsaluzas').then(response => {
+        
+        commit('setZsalu', response.data)
+        
+        router.push(adminRoot)
+        
+    })
+  },
+  forgotPassword({ commit }, payload) {
+    commit('clearError')
       commit('setProcessing', true)
       firebase
-        .auth()
+      .auth()
         .sendPasswordResetEmail(payload.email)
         .then(
           user => {
@@ -113,17 +139,17 @@ export default {
             }, 3000)
           }
         )
-    },
+      },
 
-
-    signOut({ commit }) {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
+      
+      signOut({ commit }) {
+        
           setCurrentUser(null);
           commit('setLogout')
-        }, _error => { })
+          router.push("/")
+        
+      },
+      
+      
     }
-  }
 }

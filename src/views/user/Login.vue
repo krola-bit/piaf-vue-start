@@ -18,16 +18,13 @@
 
                 <b-form @submit.prevent="formSubmit" class="av-tooltip tooltip-label-bottom">
                     <b-form-group :label="$t('user.email')" class="has-float-label mb-4">
-                        <b-form-input type="text" v-model="$v.form.email.$model" :state="!$v.form.email.$error" />
-                        <b-form-invalid-feedback v-if="!$v.form.email.required">Please enter your email address</b-form-invalid-feedback>
-                        <b-form-invalid-feedback v-else-if="!$v.form.email.email">Please enter a valid email address</b-form-invalid-feedback>
-                        <b-form-invalid-feedback v-else-if="!$v.form.email.minLength">Your email must be minimum 4 characters</b-form-invalid-feedback>
+                        <b-form-input type="text" v-model='$v.form.email.$model'  />
+                       
                     </b-form-group>
 
                     <b-form-group :label="$t('user.password')" class="has-float-label mb-4">
-                        <b-form-input type="password" v-model="$v.form.password.$model" :state="!$v.form.password.$error" />
-                        <b-form-invalid-feedback v-if="!$v.form.password.required">Please enter your password</b-form-invalid-feedback>
-                        <b-form-invalid-feedback v-else-if="!$v.form.password.minLength || !$v.form.password.maxLength">Your password must be between 4 and 16 characters</b-form-invalid-feedback>
+                        <b-form-input type="password" v-model='$v.form.password.$model' />
+                        
                     </b-form-group>
                     <div class="d-flex justify-content-between align-items-center">
                         <router-link to="/user/forgot-password">{{ $t('user.forgot-password-question')}}</router-link>
@@ -57,19 +54,17 @@
 </template>
 
 <script>
-import {
-    mapGetters,
-    mapActions
-} from "vuex";
-import {
-    validationMixin
-} from "vuelidate";
+import {mapGetters,mapActions} from "vuex";
+import {validationMixin} from "vuelidate";
+
+
 const {
     required,
     maxLength,
     minLength,
     email
 } = require("vuelidate/lib/validators");
+
 import { adminRoot } from '../../constants/config';
 
 export default {
@@ -81,6 +76,7 @@ export default {
             },
         };
     },
+    
     mixins: [validationMixin],
     validations: {
         form: {
@@ -102,9 +98,10 @@ export default {
     methods: {
         ...mapActions(["login"]),
         formSubmit() {
+
             this.$v.$touch();
-            this.form.email = "piaf-vue@coloredstrategies.com";
-            this.form.password = "piaf123";
+            this.form.email = this.form.email;
+            this.form.password = this.form.password;
             this.$v.form.$touch();
            // if (!this.$v.form.$anyError) {
                 this.login({
@@ -112,10 +109,13 @@ export default {
                     password: this.form.password
                 });
             //}
+            
         }
     },
     watch: {
+
         currentUser(val) {
+        
             if (val && val.uid && val.uid.length > 0) {
                 setTimeout(() => {
                     this.$router.push(adminRoot);

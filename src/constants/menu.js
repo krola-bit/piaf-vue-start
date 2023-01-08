@@ -8,8 +8,8 @@ const data = [{
   to: `${adminRoot}/basis`,
   subs: [{
     icon: "",
-    label: "menu.start",
-    to: `${adminRoot}/basis/start`,
+    label: "menu.colop",
+    to: `${adminRoot}/basis/colop`,
     // roles: [UserRole.Admin, UserRole.Editor],
   },
   ]

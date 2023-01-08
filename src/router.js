@@ -44,6 +44,11 @@ const routes = [
             path: 'start',
             component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Start')
             // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+          },
+          {
+            path: 'colop',
+            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Colop')
+            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
           }
         ]
       },

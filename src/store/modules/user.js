@@ -8,19 +8,19 @@ import router from '../../router'
 export default {
   state: {
     alapZsalu:[],
-    currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
+    currentUser: isAuthGuardActive ? Login() : currentUser,
     loginError: null,
     processing: false,
     forgotMailSuccess: null,
     resetPasswordSuccess: null
   },
   getters: {
-    currentUser: state => state.currentUser,
+    
     processing: state => state.processing,
     loginError: state => state.loginError,
     forgotMailSuccess: state => state.forgotMailSuccess,
     resetPasswordSuccess: state => state.resetPasswordSuccess,
-    setZsalu: state => state.alapZsalu
+    
   },
   mutations: {
     setUser(state, payload) {
@@ -28,6 +28,7 @@ export default {
       state.currentUser.title = payload.title
       state.processing = false
       state.loginError = null
+      console.log("user name", currentUser.title)
     },
     setLogout(state) {
       state.currentUser = null
@@ -66,11 +67,8 @@ export default {
     login({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true)
-      console.log(payload)
-      console.log("email ", payload.email)
-      console.log("password ", payload.password)
 
-      axios.post('http://localhost/monolit/api/public/api/login', {
+        axios.post('http://localhost/monolit/api/public/api/login', {
         email: payload.email,
         password: payload.password
       }).then(response => {
@@ -78,30 +76,28 @@ export default {
         const item = { 
           id:response.data.data.user.id,
            title:response.data.data.user.name,}
-        
 
-        commit('setUser', item)
+           
+           
+           commit('setUser', item)
+           
+           
+           router.push(adminRoot)
+           
+          }).catch(error => {
+            console.log(error)
+            setCurrentUser(null);
+            commit('setError', error.message)
+            setTimeout(() => {
+              commit('clearError')
+            }, 3000)
+          })
 
-      
 
-        
-      }).catch(error => {
-        console.log(error)
-        setCurrentUser(null);
-        commit('setError', error.message)
-        setTimeout(() => {
-          commit('clearError')
-        }, 3000)
-      })
-      
-      axios.get('http://localhost/monolit/api/public/api/zsaluzas').then(response => {
-        
-        commit('setZsalu', response.data)
-        
-        router.push(adminRoot)
-        
-    })
-  },
+    
+
+
+ },
   forgotPassword({ commit }, payload) {
     commit('clearError')
       commit('setProcessing', true)

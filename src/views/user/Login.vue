@@ -109,12 +109,14 @@ export default {
                     password: this.form.password
                 });
             //}
-            
         }
+        
     },
     watch: {
 
         currentUser(val) {
+
+            console.log("currentUser", val);
         
             if (val && val.uid && val.uid.length > 0) {
                 setTimeout(() => {

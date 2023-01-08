@@ -25,11 +25,13 @@ export default {
   },
   data() {
     return {
-      show: false
+      show: false,
+      
     };
   },
   computed: {
     ...mapGetters(["getMenuType"])
+   
   },
   mounted() {
     setTimeout(() => {

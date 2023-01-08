@@ -1,5 +1,6 @@
 import { UserRole } from "../utils/auth.roles";
 
+
 export const defaultMenuType = 'menu-default' // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
 export const adminRoot = '/app';
 export const searchPath = `${adminRoot}/#`
@@ -32,7 +33,7 @@ export const firebaseConfig = {
 
 export const currentUser = {
   id: 1,
-  title: 'Sarah Kortney',
+  title: 'Krosztics Lajos',
   img: '/assets/img/profiles/12.jpg',
   date: 'Last seen today 15:24',
   role: UserRole.Admin

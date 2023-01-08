@@ -94,7 +94,8 @@ import {
   menuHiddenBreakpoint,
   localeOptions,
   buyUrl,
-  adminRoot
+  adminRoot,
+  currentUser
 } from "../../constants/config";
 import { getDirection, setDirection, getThemeColor, setThemeColor } from "../../utils";
 export default {
@@ -115,9 +116,14 @@ export default {
       buyUrl,
       notifications,
       isDarkActive: false,
-      adminRoot
+      adminRoot,
+      currentUser
     };
   },
+
+  
+
+
   methods: {
     ...mapMutations(["changeSideMenuStatus", "changeSideMenuForMobile"]),
     ...mapActions(["setLang", "signOut"]),

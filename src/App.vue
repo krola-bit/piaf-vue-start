@@ -10,9 +10,11 @@ import ColorSwitcher from "./components/Common/ColorSwitcher";
 
 import { getDirection } from "./utils";
 
+
 export default {
   components: {
-    "color-switcher": ColorSwitcher
+    "color-switcher": ColorSwitcher,
+    
   },
   beforeMount() {
     const direction = getDirection();
@@ -25,6 +27,10 @@ export default {
       document.dir = "ltr";
       document.body.classList.remove("rtl");
     }
+  },
+  created() {
+    
+    this.$store.dispatch('getZsalu'); // ez a zsalu.js-ből jön
   }
 };
 

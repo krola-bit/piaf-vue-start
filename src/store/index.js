@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import app from '../main'
 import menu from './modules/menu'
 import user from './modules/user'
+import zsalu from './modules/zsalu'
 import { setCurrentLanguage } from '../utils'
 
 Vue.use(Vuex)
@@ -25,5 +26,6 @@ export default new Vuex.Store({
   modules: {
     menu,
     user,
+    zsalu,
   }
 })

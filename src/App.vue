@@ -28,10 +28,7 @@ export default {
       document.body.classList.remove("rtl");
     }
   },
-  created() {
-    
-    this.$store.dispatch('getZsalu'); // ez a zsalu.js-ből jön
-  }
+  
 };
 
 

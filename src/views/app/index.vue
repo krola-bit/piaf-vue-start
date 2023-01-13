@@ -12,8 +12,6 @@ export default {
     "app-layout": AppLayout
   }
 
-
-
   
 };
 </script>

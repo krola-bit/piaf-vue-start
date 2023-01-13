@@ -4,10 +4,8 @@
     <b-colxx xxs="12">
       <piaf-breadcrumb :heading="$t('menu.fejléc') "/>
       <div class="separator mb-5">
-        
       </div>
     </b-colxx>
-    
   </b-row>
 
 
@@ -56,9 +54,6 @@ import store from '@/store'
 
 export default {
   name: 'Colop',
-  components: {
-
-  },
 
   data() {
     return {
@@ -67,31 +62,38 @@ export default {
     }
   },
   computed: {
-
+  
   },
-
+  
+  
+  
   created() {
 
-    axios.get('http://localhost/monolit/api/public/api/zsaluzas')
-    .then(response => this.zsalu = response.data) 
-
-    .catch(error => console.log(error))
-
-    //console.log("zalu beolvasva", this.zsalu)
-
-
-
+    console.log('created')
+    
+    store.dispatch('getAlapZsalu')
+    .then( () => {
+      this.alapZsalu = store.getters.getAlapZsalu
+      
+    })
+    .then( () => {
+      this.getfiltered(this.alapZsalu)
+      console.log('this.filteredAlapzsalu', this.filteredAlapzsalu)
+     
+    })
+    
   },
 
 
   methods: {
-
-   
-
-  } 
-
-
-
+    
+  getfiltered(payload) {
+    console.log('getfiltered/cölöp.vue', payload)
+    this.filteredAlapzsalu = payload.filter( (alapZsalu) => {
+      return alapZsalu.szint === "colop"})	
+    }
+  
+  }
 }
 
 

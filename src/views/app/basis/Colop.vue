@@ -12,7 +12,7 @@
 
   <b-row>
     <b-colxx xxs="12">
-        <b-card class="mb-4" v-for="zsalu in zsalu" :key="zsalu.id">
+        <b-card class="mb-4" v-for="filteredAlapzsalu in filteredAlapzsalu" :key="filteredAlapzsalu.id">
           <b-card-header class="card">
             <div class="v1">
               <b-card-text class="col-1 v2">Tétel</b-card-text>
@@ -23,14 +23,14 @@
           </b-card-header>
           <b-card-body class="card">
             <div class="v1" >
-              <b-card-title class="col-3" >{{zsalu.tetel}}</b-card-title>
+              <b-card-title class="col-3" >{{filteredAlapzsalu.tetel}}</b-card-title>
                 <div class="col-9 v1" >
                   <b-card-text class="col-2 v2" >
-                    <b-form-input v-model="zsalu.mennyiseg" type="number" min="0" max="100" step="1" class="form-control" />
-                     {{   zsalu.mertekegyseg}} 
+                    <b-form-input v-model="filteredAlapzsalu.mennyiseg" type="number" min="0" max="100" step="1" class="form-control" />
+                     {{   filteredAlapzsalu.mertekegyseg}} 
                     </b-card-text>
-                  <b-card-text class="col-2 v2" >{{zsalu.anyagegysegar}} Ft</b-card-text>
-                  <b-card-text class="col-2 v2" >{{zsalu.dijegysegar}} Ft</b-card-text>
+                  <b-card-text class="col-2 v2" >{{filteredAlapzsalu.anyagegysegar}} Ft</b-card-text>
+                  <b-card-text class="col-2 v2" >{{filteredAlapzsalu.dijegysegar}} Ft</b-card-text>
                 </div>
             </div>          
           </b-card-body>       
@@ -44,50 +44,56 @@
 
 <script>
 
-import axios from 'axios'
+// $store.getters.getAlapZsalu 
+// $store.getters.getfilteredAlapzsalu
+
+
+
+import store from '@/store'
+
 
 export default {
   name: 'Colop',
-  components: {
-
-  },
 
   data() {
     return {
-      
-      zsalu: [],
+      alapZsalu: [],
+      filteredAlapzsalu: [],
     }
   },
-
   computed: {
-
+  
   },
-
+  
+  
+  
   created() {
-
-    axios.get('http://localhost/monolit/api/public/api/zsaluzas')
-    .then(response => this.zsalu = response.data) 
-
-    .catch(error => console.log(error))
-
-    //console.log("zalu beolvasva", this.zsalu)
-
-
-
+    console.log('created')
+    
+    store.dispatch('getAlapZsalu')
+    .then( () => {
+      this.alapZsalu = store.getters.getAlapZsalu
+      
+    })
+    .then( () => {
+      this.getfiltered(this.alapZsalu)
+      console.log('this.filteredAlapzsalu', this.filteredAlapzsalu)
+     
+    })
+    
   },
+
 
   methods: {
-
-   
-
-  } 
-
-
-
+    
+  getfiltered(payload) {
+    console.log('getfiltered/cölöp.vue', payload)
+    this.filteredAlapzsalu = payload.filter( (alapZsalu) => {
+      return alapZsalu.szint === "colop"})	
+    }
+  
+  }
 }
-
-
-
 
 
 
@@ -123,6 +129,9 @@ b-kard-title {
 .form-control {
   font-size: 20px;
   align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin: 10px;
+  border-radius: 1rem;
 }
 
 </style>

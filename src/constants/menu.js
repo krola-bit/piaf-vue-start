@@ -11,7 +11,12 @@ const data = [{
     label: "menu.colop",
     to: `${adminRoot}/basis/colop`,
     // roles: [UserRole.Admin, UserRole.Editor],
-  },
+  },{
+    icon: "",
+    label: "menu.basebeam",
+    to: `${adminRoot}/basis/basebeam`,
+    // roles: [UserRole.Admin, UserRole.Editor],
+  }
   ]
 },
 {

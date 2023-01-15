@@ -121,7 +121,9 @@
     "single": "Single",
     "basis": "Alap",
     "colop": "Cölöp",
-    "fejléc": "Tétel"
+    "fejléc": "Tétel",
+    "create": "Új tétel",
+    "basebeam": "Talpgerenda"
     
   },
   "dashboards": {

@@ -7,12 +7,12 @@
       </div>
     </b-colxx>
   </b-row>
-
-
-
   <b-row>
     <b-colxx xxs="12">
         <b-card class="mb-4" v-for="filteredAlapzsalu in filteredAlapzsalu" :key="filteredAlapzsalu.id">
+          <b-button class="vs btn btn-danger" @click="deleteAlapZsalu(filteredAlapzsalu.id)">
+            <i class="simple-icon-close"></i>
+          </b-button>
           <b-card-header class="card">
             <div class="v1">
               <b-card-text class="col-1 v2">Tétel</b-card-text>
@@ -26,7 +26,7 @@
               <b-card-title class="col-3" >{{filteredAlapzsalu.tetel}}</b-card-title>
                 <div class="col-9 v1" >
                   <b-card-text class="col-2 v2" >
-                    <b-form-input v-model="filteredAlapzsalu.mennyiseg" type="number" min="0" max="100" step="1" class="form-control" />
+                    <b-form-input v-model="filteredAlapzsalu.mennyiseg" placeholder="0"  class="form-control" />
                      {{   filteredAlapzsalu.mertekegyseg}} 
                     </b-card-text>
                   <b-card-text class="col-2 v2" >{{filteredAlapzsalu.anyagegysegar}} Ft</b-card-text>
@@ -35,66 +35,94 @@
             </div>          
           </b-card-body>       
         </b-card>
-    </b-colxx>
-  </b-row>
+        <b-card-body class="card">
+            <div class="v1" >              
+              <b-button class="btn btn-primary" @click="filterAlapZsalu()">
+                <i class="simple-icon-refresh">  Lista vissza állítás</i>
+              </b-button>
+              <b-button class="btn btn-primary" @click="addAlapZsalu()">
+                <i class="simple-icon-plus">  uj tétel</i>
+              </b-button>
+              <b-button class="btn btn-success" @click="addtask()">
+                <i class="simple-icon-check">  Mentés</i>
+              </b-button>   
+            </div>          
+          </b-card-body>
+      </b-colxx>
+    </b-row>
   </div>
 </template>
 
 
 
 <script>
-
-// $store.getters.getAlapZsalu 
-// $store.getters.getfilteredAlapzsalu
-
-
-
-import store from '@/store'
-
-
+import router from '../../../router';
 export default {
   name: 'Colop',
 
   data() {
     return {
       alapZsalu: [],
-      filteredAlapzsalu: [],
-    }
+      filteredAlapzsalu: []
+    };
   },
   computed: {
   
   },
-  
-  
-  
+
   created() {
 
-    console.log('created')
-    
-    store.dispatch('getAlapZsalu')
-    .then( () => {
-      this.alapZsalu = store.getters.getAlapZsalu
+    if (localStorage.getItem("alapZsalu") === null) {
+      this.$store.dispatch("getAlapZsalu")
+
+      this.alapZsalu = JSON.parse(localStorage.getItem("alapZsalu"));
+      this.filterAlapZsalu();
       
-    })
-    .then( () => {
-      this.getfiltered(this.alapZsalu)
-      console.log('this.filteredAlapzsalu', this.filteredAlapzsalu)
-     
-    })
+    } else {
+      this.alapZsalu = JSON.parse(localStorage.getItem("alapZsalu"));
+      this.filterAlapZsalu();
+    }
     
   },
 
-
   methods: {
-    
-  getfiltered(payload) {
-    console.log('getfiltered/cölöp.vue', payload)
-    this.filteredAlapzsalu = payload.filter( (alapZsalu) => {
-      return alapZsalu.szint === "colop"})	
+    filterAlapZsalu() {
+      console.log("filterAlapZsalu")
+      this.filteredAlapzsalu = this.alapZsalu.filter(
+        alapZsalu => alapZsalu.szint === "colop",
+        console.log("filtered zsalu kész ",this.filteredAlapzsalu )
+      );
+    },
+
+    deleteAlapZsalu(id) {
+      console.log(id)
+      this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
+        filteredAlapzsalu => filteredAlapzsalu.id !== id,
+        localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu),
+      )
+      );
+    },
+
+    addAlapZsalu() {
+      router.push('/app/basis/create');
+      /* this.filteredAlapzsalu.push({
+        id: this.filteredAlapzsalu.length + 1,
+        szint: "colop",
+        tetel: "uj tétel",
+        mennyiseg: 0,
+        mertekegyseg: "m2",
+        anyagegysegar: 0,
+        dijegysegar: 0
+        */
+      },
+
+    addtask() {
+      localStorage.setItem("alapZsalu",
+        JSON.stringify(this.filteredAlapzsalu)
+      );
     }
-  
   }
-}
+};
 
 
 
@@ -122,6 +150,15 @@ export default {
   
 }
 
+.vs {
+  margin-left: 95%;
+  margin-right: 5%;
+  margin-bottom: 15px;
+  margin-top: 1px;
+
+}
+
+
 b-kard-title {
   font-size: 5em ;
   align-items: center;
@@ -134,5 +171,22 @@ b-kard-title {
   margin: 10px;
   border-radius: 1rem;
 }
+
+.btn-danger {
+  background-color: red;
+
+}
+.btn-success {
+  background-color: green;
+  margin: 20px;
+}
+
+.btn-primary {
+  margin: 10px;
+
+}
+
+
+
 
 </style>

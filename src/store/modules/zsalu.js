@@ -12,9 +12,6 @@ import axios from 'axios'
 export default {
     state: {
         alapZsalu:[],
-        filteredAlapzsalu:[]
-
-
     },
     actions: {
         getAlapZsalu: ({commit})=> {
@@ -28,51 +25,32 @@ export default {
               .catch(error => {
                 console.log(error);
               });
-          },
-
-          getfiltered: ({commit})=> {
-            console.log("getfiltered")
-            commit('getfiltered')
-          },
+          },    
+    },
           
-      
-       
-
-    },
-
-    created() {
-        
-       
-
-        
-        
-    },
-
-
     mutations: {
+      // a store-ban a state változókat csak a mutationokon keresztül lehet módosítani
 
       setalapzsalu(state, payload) {  
-        state.alapZsalu = payload
+        state.alapZsalu = payload,
+        localStorage.setItem('alapZsalu', JSON.stringify(payload))
         console.log("alapzsalu a sztorban", state.alapZsalu)
-      },
-      
-
-
-        
-      getfiltered(state) {
-        console.log("getfiltered")
-        state.filteredAlapzsalu = state.alapZsalu.filter( (alapZsalu) => {
-          return alapZsalu.szint === "colop"
-        })	
       }
-
     },
     getters: {
-        getAlapZsalu: state => state.alapZsalu,
-        getfiltered: state => state.filteredAlapzsalu,
-      
-      }
+      getAlapZsalu: state => state.alapZsalu,
+    },
+
+    
 }
 
+
+
+
+// Path: src\store\modules\zsalu.js
+// ez a fájl a store-ban a zsalu modulját tartalmazza
+// a store-ban a modulokat a modules-ban kell definiálni
+// meghívás: this.$store.getters.getAlapZsalu
+// a state-ből való kiolvasás: this.$store.getters.getAlapZsalu
 
 

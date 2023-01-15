@@ -49,7 +49,18 @@ const routes = [
             path: 'colop',
             component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Colop')
             // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+          },
+          {
+            path: 'create',
+            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/create')
+            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+          },
+          {
+            path: 'basebeam',
+            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Basebeam')
+            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
           }
+
         ]
       },
       {

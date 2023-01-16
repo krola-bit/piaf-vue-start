@@ -57,6 +57,9 @@
 
 <script>
 import router from '../../../router';
+
+const item='alapZsalu'
+
 export default {
   name: 'Colop',
 
@@ -72,7 +75,7 @@ export default {
 
   created() {
 
-    if (localStorage.getItem("alapZsalu") === null) {
+    if (localStorage.getItem(item) === null) {
       this.$store.dispatch("getAlapZsalu")
 
       this.alapZsalu = JSON.parse(localStorage.getItem("alapZsalu"));
@@ -89,7 +92,7 @@ export default {
     filterAlapZsalu() {
       console.log("filterAlapZsalu")
       this.filteredAlapzsalu = this.alapZsalu.filter(
-        alapZsalu => alapZsalu.szint === "colop",
+        alapZsalu => alapZsalu.szint === "colop" || alapZsalu.munkanem === "colopalap_beton",
         console.log("filtered zsalu kész ",this.filteredAlapzsalu )
       );
     },
@@ -104,7 +107,7 @@ export default {
     },
 
     addAlapZsalu() {
-      router.push('/app/basis/create');
+      router.push('/app/basis/create',item);
       /* this.filteredAlapzsalu.push({
         id: this.filteredAlapzsalu.length + 1,
         szint: "colop",

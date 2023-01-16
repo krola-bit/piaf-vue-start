@@ -26,7 +26,7 @@
               <b-card-title class="col-3" >{{filteredAlapzsalu.tetel}}</b-card-title>
                 <div class="col-9 v1" >
                   <b-card-text class="col-2 v2" >
-                    <b-form-input v-model="filteredAlapzsalu.mennyiseg" placeholder="0"  class="form-control" />
+                    <b-form-input v-model="filteredAlapzsalu.mennyiseg" class=""  placeholder="0"/>
                      {{   filteredAlapzsalu.mertekegyseg}} 
                     </b-card-text>
                   <b-card-text class="col-2 v2" >{{filteredAlapzsalu.anyagegysegar}} Ft</b-card-text>

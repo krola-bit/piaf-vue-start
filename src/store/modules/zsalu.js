@@ -43,14 +43,3 @@ export default {
 
     
 }
-
-
-
-
-// Path: src\store\modules\zsalu.js
-// ez a fájl a store-ban a zsalu modulját tartalmazza
-// a store-ban a modulokat a modules-ban kell definiálni
-// meghívás: this.$store.getters.getAlapZsalu
-// a state-ből való kiolvasás: this.$store.getters.getAlapZsalu
-
-

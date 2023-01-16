@@ -25,42 +25,31 @@ const routes = [
     redirect: `${adminRoot}/basis`,
     meta: { loginRequired: true },
 
-    /*
-   define with Authorization :
-   meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
-   */
-
-   
-
 
     children: [
       {
         path: "basis",
         component: () =>
-          import(/* webpackChunkName: "piaf" */ "./views/app/basis"),
+          import("./views/app/basis"),
         redirect: `${adminRoot}/basis/start`,
         children: [
           {
             path: 'start',
-            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Start')
-            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+            component: () => import('./views/app/basis/Start')
           },
           {
             path: 'colop',
-            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Colop')
-            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
-          },
-          {
-            path: 'create',
-            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/create')
-            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+            component: () => import('./views/app/basis/Colop')
           },
           {
             path: 'basebeam',
-            component: () => import(/* webpackChunkName: "piaf" */ './views/app/basis/Basebeam')
-            // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+            component: () => import('./views/app/basis/basebeam')
+          },
+          {
+            path: 'create',
+            component: () => import('./views/app/basis/create')
           }
-
+          
         ]
       },
       {

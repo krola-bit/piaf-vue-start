@@ -15,7 +15,6 @@ const data = [{
     icon: "",
     label: "menu.basebeam",
     to: `${adminRoot}/basis/basebeam`,
-    // roles: [UserRole.Admin, UserRole.Editor],
   }
   ]
 },

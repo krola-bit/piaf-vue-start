@@ -22,51 +22,32 @@ const routes = [
     
 
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
-    redirect: `${adminRoot}/basis`,
+    redirect: `${adminRoot}/add`,
     meta: { loginRequired: true },
 
 
     children: [
       {
-        path: "basis",
+        path: "add",
         component: () =>
-          import("./views/app/basis"),
-        redirect: `${adminRoot}/basis/start`,
+          import("./views/app/add"),
+        redirect: `${adminRoot}/add/start`,
         children: [
           {
             path: 'start',
-            component: () => import('./views/app/basis/Start')
+            component: () => import('./views/app/add/Start')
           },
           {
-            path: 'colop',
-            component: () => import('./views/app/basis/Colop')
-          },
-          {
-            path: 'basebeam',
-            component: () => import('./views/app/basis/basebeam')
-          },
-          {
-            path: 'create',
-            component: () => import('./views/app/basis/create')
+            path: 'alapozas',
+            component: () => import('./views/app/add/alapozas')
           }
-          
         ]
       },
       {
-        path: "second-menu",
+        path: "ajanlat/:id?",
         component: () =>
-          import(/* webpackChunkName: "second-menu" */ "./views/app/second-menu"),
-        redirect: `${adminRoot}/second-menu/second`,
-        children: [
-          { path: 'second', component: () => import(/* webpackChunkName: "piaf" */ './views/app/second-menu/Second') }
-        ]
-      },
-
-
-      {
-        path: "single",
-        component: () =>
-          import(/* webpackChunkName: "single" */ "./views/app/single")
+          import("./views/app/ajanlat/tetel.vue"),
+        
       }
     ]
   },

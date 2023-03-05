@@ -123,7 +123,11 @@
     "colop": "Cölöp",
     "fejléc": "Tétel",
     "create": "Új tétel",
-    "basebeam": "Talpgerenda"
+    "talpgerenda": "Talpgerenda",
+    "add": "Új",
+    "alapozas": "Alapozás",
+    "savalap": "Sávalap",
+    "alaplemez": "Alaplemez"
     
   },
   "dashboards": {

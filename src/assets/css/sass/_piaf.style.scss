@@ -7730,6 +7730,11 @@ footer.page-footer {
   }
 }
 
+.custom-control {
+  
+  color: $theme-color-1;
+}
+
 #app-container {
   &.sub-hidden .footer-content,
   &.menu-sub-hidden .footer-content,

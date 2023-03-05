@@ -97,14 +97,14 @@ import {
   menuHiddenBreakpoint,
   subHiddenBreakpoint,
 } from "../../constants/config";
-import menuItems from "../../constants/menu";
+//import menuItems from "../../constants/menu";
 import { UserRole } from "../../utils/auth.roles";
 
 export default {
   data() {
     return {
       selectedParentMenu: "",
-      menuItems,
+      
       viewingParentMenu: "",
     };
   },
@@ -309,6 +309,7 @@ export default {
       menuType: "getMenuType",
       menuClickCount: "getMenuClickCount",
       selectedMenuHasSubItems: "getSelectedMenuHasSubItems",
+      menuItems: "userMenu"
     }),
   },
   watch: {

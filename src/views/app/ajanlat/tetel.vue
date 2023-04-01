@@ -2,10 +2,10 @@
   <div>
     <b-row>
       <b-colxx xxs="12">
-        <piaf-breadcrumb :heading="$t('menu.fejléc')" />
+        <piaf-breadcrumb :heading="$t('menu.ajanlat')" />
         <div class="separator mb-5">
         </div>
-        
+
       </b-colxx>
     </b-row>
     <b-row>
@@ -65,7 +65,7 @@ import router from '../../../router'
 
 const item = 'alapZsalu'
 
-const useroute = router.currentRoute.params.id
+
 
 export default {
   name: 'Colop',
@@ -96,42 +96,68 @@ export default {
   },
 
   methods: {
-    filterAlapZsalu(userouter) {
 
-      console.log(userouter.params.id)
+    filterAlapZsalu() {
+      const { params } = this.$route;
+      const { id } = params;
 
-    },
-     
+      if (id === "cölöp") {
+        // cölöp specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+          return alapzsalu.szint === "cölöp";
+        });
+      } else if (id === "gerenda") {
+        // gerenda specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+          return alapzsalu.szint === "gerenda";
+        });
+      } else if (id === "alaplemez") {
+        // alaplemez specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+          return alapzsalu.szint === "alaplemez";
+        });
+      } else {
+        // ha nincs érvényes id paraméter, visszaadja az összes alapzsalut
+        this.filteredAlapzsalu = this.alapzsaluk;
+      }
 
-    deleteAlapZsalu(id) {
-      console.log(id)
-      this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
-        filteredAlapzsalu => filteredAlapzsalu.id !== id,
-        localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu),
-        )
-      );
-    },
-
-    addAlapZsalu() {
-      router.push('/app/basis/create', item);
-      /* this.filteredAlapzsalu.push({
-        id: this.filteredAlapzsalu.length + 1,
-        szint: "colop",
-        tetel: "uj tétel",
-        mennyiseg: 0,
-        mertekegyseg: "m2",
-        anyagegysegar: 0,
-        dijegysegar: 0
-        */
-    },
-
-    addtask() {
-      localStorage.setItem("alapZsalu",
-        JSON.stringify(this.filteredAlapzsalu)
-      );
+      console.log("szürés",this.filteredAlapzsalu);
     }
+
+
+  },
+
+
+
+  deleteAlapZsalu(id) {
+    console.log(id)
+    this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
+      filteredAlapzsalu => filteredAlapzsalu.id !== id,
+      localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu),
+      )
+    );
+  },
+
+  addAlapZsalu() {
+    router.push('/app/basis/create', item);
+    /* this.filteredAlapzsalu.push({
+      id: this.filteredAlapzsalu.length + 1,
+      szint: "colop",
+      tetel: "uj tétel",
+      mennyiseg: 0,
+      mertekegyseg: "m2",
+      anyagegysegar: 0,
+      dijegysegar: 0
+      */
+  },
+
+  addtask() {
+    localStorage.setItem("alapZsalu",
+      JSON.stringify(this.filteredAlapzsalu)
+    );
   }
-};
+}
+
 
 
 

@@ -3,9 +3,7 @@
     <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb :heading="$t('menu.ajanlat')" />
-        <div class="separator mb-5">
-        </div>
-
+        <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
     <b-row>
@@ -24,7 +22,9 @@
           </b-card-header>
           <b-card-body class="card">
             <div class="v1">
-              <b-card-title class="col-3">{{ filteredAlapzsalu.tetel }}</b-card-title>
+              <b-card-title class="col-3">{{
+                filteredAlapzsalu.tetel
+              }}</b-card-title>
               <div class="col-9 v1">
                 <b-card-text class="col-2 v2">
                   <b-form-input v-model="filteredAlapzsalu.mennyiseg" class="" placeholder="0" />
@@ -57,89 +57,86 @@
 
 
 <script>
+import router from "../../../router";
 
-import router from '../../../router'
-
-
-
-
-const item = 'alapZsalu'
-
-
+const item = "alapZsalu";
 
 export default {
-  name: 'Colop',
+  name: "Colop",
 
   data() {
     return {
       alapZsalu: [],
-      filteredAlapzsalu: []
+      filteredAlapzsalu: [],
     };
   },
-  computed: {
-
-  },
+  computed: {},
 
   created() {
-
     if (localStorage.getItem(item) === null) {
-      this.$store.dispatch("getAlapZsalu")
+      this.$store.dispatch("getAlapZsalu");
 
       this.alapZsalu = JSON.parse(localStorage.getItem("alapZsalu"));
       this.filterAlapZsalu();
-
     } else {
       this.alapZsalu = JSON.parse(localStorage.getItem("alapZsalu"));
       this.filterAlapZsalu();
     }
-
   },
 
   methods: {
-
     filterAlapZsalu() {
+      console.log("szürés", this.alapZsalu);
       const { params } = this.$route;
       const { id } = params;
 
-      if (id === "cölöp") {
+      console.log("id értéke:", id); // az id értékét kiíratjuk a konzolon
+
+      if (id === "colop") {
         // cölöp specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
-          return alapzsalu.szint === "cölöp";
+          return alapzsalu.szint === "colop";
         });
-      } else if (id === "gerenda") {
+      } else if (id === "savalap") {
         // gerenda specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
-          return alapzsalu.szint === "gerenda";
+          return alapzsalu.szint === "savalap";
         });
       } else if (id === "alaplemez") {
         // alaplemez specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
           return alapzsalu.szint === "alaplemez";
         });
+      } else if (id === "talpgerenda") {
+        // alaplemez specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+          return alapzsalu.szint === "talpgerenda";
+        });
       } else {
         // ha nincs érvényes id paraméter, visszaadja az összes alapzsalut
         this.filteredAlapzsalu = this.alapzsaluk;
       }
 
-      console.log("szürés",this.filteredAlapzsalu);
-    }
-
-
+      console.log("szürt adatok ", this.filteredAlapzsalu);
+    },
+  },
+  watch: {
+    "$route.params.id": function (newValue, oldValue) {
+      console.log("Az id értéke megváltozott:", newValue, oldValue);
+      this.filterAlapZsalu();
+    },
   },
 
-
-
   deleteAlapZsalu(id) {
-    console.log(id)
+    console.log(id);
     this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
-      filteredAlapzsalu => filteredAlapzsalu.id !== id,
-      localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu),
-      )
+      (filteredAlapzsalu) => filteredAlapzsalu.id !== id,
+      localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu))
     );
   },
 
   addAlapZsalu() {
-    router.push('/app/basis/create', item);
+    router.push("/app/basis/create", item);
     /* this.filteredAlapzsalu.push({
       id: this.filteredAlapzsalu.length + 1,
       szint: "colop",
@@ -152,15 +149,9 @@ export default {
   },
 
   addtask() {
-    localStorage.setItem("alapZsalu",
-      JSON.stringify(this.filteredAlapzsalu)
-    );
-  }
-}
-
-
-
-
+    localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu));
+  },
+};
 </script>
 
 <style scoped>
@@ -169,7 +160,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .v2 {
@@ -178,8 +168,6 @@ export default {
   justify-content: flex-end;
   font-size: 20px;
   align-items: center;
-
-
 }
 
 .vs {
@@ -187,9 +175,7 @@ export default {
   margin-right: 5%;
   margin-bottom: 15px;
   margin-top: 1px;
-
 }
-
 
 b-kard-title {
   font-size: 5em;
@@ -206,7 +192,6 @@ b-kard-title {
 
 .btn-danger {
   background-color: red;
-
 }
 
 .btn-success {
@@ -216,6 +201,5 @@ b-kard-title {
 
 .btn-primary {
   margin: 10px;
-
 }
 </style>

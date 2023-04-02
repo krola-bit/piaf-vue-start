@@ -44,9 +44,9 @@ const routes = [
         ]
       },
       {
-        path: "ajanlat/:id?",
+        path: "ajanlat/:id",
         component: () =>
-          import("./views/app/ajanlat/tetel.vue"),
+          import("./views/app/ajanlat/tetel"),
         
       }
     ]

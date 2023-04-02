@@ -94,27 +94,27 @@ export default {
 
       if (id === "colop") {
         // cölöp specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
           return alapzsalu.szint === "colop";
         });
       } else if (id === "savalap") {
         // gerenda specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
           return alapzsalu.szint === "savalap";
         });
       } else if (id === "alaplemez") {
         // alaplemez specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
           return alapzsalu.szint === "alaplemez";
         });
       } else if (id === "talpgerenda") {
         // alaplemez specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsaluk.filter((alapzsalu) => {
+        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
           return alapzsalu.szint === "talpgerenda";
         });
       } else {
         // ha nincs érvényes id paraméter, visszaadja az összes alapzsalut
-        this.filteredAlapzsalu = this.alapzsaluk;
+        this.filteredAlapzsalu = this.alapzsalu;
       }
 
       console.log("szürt adatok ", this.filteredAlapzsalu);

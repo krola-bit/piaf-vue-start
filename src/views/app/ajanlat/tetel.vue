@@ -86,72 +86,74 @@ export default {
 
   methods: {
     filterAlapZsalu() {
-      console.log("szürés", this.alapZsalu);
+      console.log("szűrés", this.alapZsalu);
       const { params } = this.$route;
       const { id } = params;
 
       console.log("id értéke:", id); // az id értékét kiíratjuk a konzolon
 
       if (id === "colop") {
-        // cölöp specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
-          return alapzsalu.szint === "colop";
+        // colop specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
+          return alapZsalu.szint === "colop";
         });
       } else if (id === "savalap") {
-        // gerenda specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
-          return alapzsalu.szint === "savalap";
+        // savalap specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
+          return alapZsalu.szint === "savalap";
         });
       } else if (id === "alaplemez") {
         // alaplemez specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
-          return alapzsalu.szint === "alaplemez";
+        this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
+          return alapZsalu.szint === "alaplemez";
         });
       } else if (id === "talpgerenda") {
-        // alaplemez specifikus szűrési feltételek
-        this.filteredAlapzsalu = this.alapzsalu.filter((alapzsalu) => {
-          return alapzsalu.szint === "talpgerenda";
+        // talpgerenda specifikus szűrési feltételek
+        this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
+          return alapZsalu.szint === "alaplemez";
         });
       } else {
         // ha nincs érvényes id paraméter, visszaadja az összes alapzsalut
-        this.filteredAlapzsalu = this.alapzsalu;
+        this.filteredAlapzsalu = this.alapZsalu;
       }
 
-      console.log("szürt adatok ", this.filteredAlapzsalu);
+      console.log("szűrés", this.filteredAlapzsalu);
     },
   },
   watch: {
-    "$route.params.id": function (newValue, oldValue) {
-      console.log("Az id értéke megváltozott:", newValue, oldValue);
+    $route() {
       this.filterAlapZsalu();
     },
-  },
 
-  deleteAlapZsalu(id) {
-    console.log(id);
-    this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
-      (filteredAlapzsalu) => filteredAlapzsalu.id !== id,
-      localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu))
-    );
-  },
 
-  addAlapZsalu() {
-    router.push("/app/basis/create", item);
-    /* this.filteredAlapzsalu.push({
-      id: this.filteredAlapzsalu.length + 1,
-      szint: "colop",
-      tetel: "uj tétel",
-      mennyiseg: 0,
-      mertekegyseg: "m2",
-      anyagegysegar: 0,
-      dijegysegar: 0
-      */
-  },
 
-  addtask() {
-    localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu));
+    deleteAlapZsalu(id) {
+      console.log(id);
+      this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
+        (filteredAlapzsalu) => filteredAlapzsalu.id !== id,
+        localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu))
+      );
+    },
+
+    addAlapZsalu() {
+      router.push("/app/basis/create", item);
+      /* this.filteredAlapzsalu.push({
+        id: this.filteredAlapzsalu.length + 1,
+        szint: "colop",
+        tetel: "uj tétel",
+        mennyiseg: 0,
+        mertekegyseg: "m2",
+        anyagegysegar: 0,
+        dijegysegar: 0
+        */
+    },
+
+    addtask() {
+      localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu));
+    },
   },
 };
+
 </script>
 
 <style scoped>

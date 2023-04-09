@@ -86,38 +86,34 @@ export default {
 
   methods: {
     filterAlapZsalu() {
-      console.log("szűrés", this.alapZsalu);
       const { params } = this.$route;
       const { id } = params;
 
-      console.log("id értéke:", id); // az id értékét kiíratjuk a konzolon
 
       if (id === "colop") {
         // colop specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
-          return alapZsalu.szint === "colop";
+          return alapZsalu.munkanem === "cölöp";
         });
       } else if (id === "savalap") {
         // savalap specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
-          return alapZsalu.szint === "savalap";
+          return alapZsalu.munkanem === "sávalap";
         });
       } else if (id === "alaplemez") {
         // alaplemez specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
-          return alapZsalu.szint === "alaplemez";
+          return alapZsalu.munkanem === "alaplemez";
         });
       } else if (id === "talpgerenda") {
         // talpgerenda specifikus szűrési feltételek
         this.filteredAlapzsalu = this.alapZsalu.filter((alapZsalu) => {
-          return alapZsalu.szint === "alaplemez";
+          return alapZsalu.munkanem === "talpgerenda";
         });
       } else {
         // ha nincs érvényes id paraméter, visszaadja az összes alapzsalut
         this.filteredAlapzsalu = this.alapZsalu;
       }
-
-      console.log("szűrés", this.filteredAlapzsalu);
     },
   },
   watch: {

@@ -38,7 +38,7 @@ export default {
     loginError: state => state.loginError,
     forgotMailSuccess: state => state.forgotMailSuccess,
     resetPasswordSuccess: state => state.resetPasswordSuccess,
-    userMenu: state => state.userMenu
+    userMenu: state => state.userMenu // ezzel van kicserélve a saját menüm 
   },
   mutations: {
     setUserMenu(context, value) {
@@ -100,12 +100,11 @@ export default {
         menu.subs.push({
           icon: "",
           label: `menu.${ertekek[i]}`,
-          to: `${tetelRoute}/`+ `${ertekek[i]}`,
+          to: `${tetelRoute}/${ertekek[i]}`,
         });
       }
       state.userMenu.push(menu);
       state.userMenu.push(lastMenu);
-
       router.push(adminRoot);
     }
   },

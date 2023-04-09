@@ -27,7 +27,8 @@
               }}</b-card-title>
               <div class="col-9 v1">
                 <b-card-text class="col-2 v2">
-                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" class="" placeholder="0" />
+                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" placeholder="0"
+                    :class="{ 'bg-success': filteredAlapzsalu.mennyiseg > 0 }" ref="inputRef" />
                   {{ filteredAlapzsalu.mertekegyseg }}
                 </b-card-text>
                 <b-card-text class="col-2 v2">{{ filteredAlapzsalu.anyagegysegar }} Ft</b-card-text>
@@ -58,11 +59,16 @@
 
 <script>
 import router from "../../../router";
+import { ref } from "vue";
 
 const item = "alapZsalu";
 
 export default {
   name: "Colop",
+
+  setup() {
+    const inputRef = ref(null);
+  },
 
   data() {
     return {
@@ -82,6 +88,10 @@ export default {
       this.alapZsalu = JSON.parse(localStorage.getItem("alapZsalu"));
       this.filterAlapZsalu();
     }
+    const focusInput = () => {
+      this.$refs.inputRef.focus();
+    };
+    this.$nextTick(focusInput);
   },
 
   methods: {

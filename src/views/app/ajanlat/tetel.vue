@@ -27,8 +27,9 @@
               }}</b-card-title>
               <div class="col-9 v1">
                 <b-card-text class="col-2 v2">
-                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" placeholder="0"
-                    :class="{ 'bg-success': filteredAlapzsalu.mennyiseg > 0 }"/>
+                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" :key="filteredAlapzsalu.id" placeholder="0"
+                    :class="{ 'bg-success': filteredAlapzsalu.mennyiseg > 0 }"
+                    @keyup.enter="focusNextInput(filteredAlapzsalu.id)" />
                   {{ filteredAlapzsalu.mertekegyseg }}
                 </b-card-text>
                 <b-card-text class="col-2 v2">{{ filteredAlapzsalu.anyagegysegar }} Ft</b-card-text>
@@ -87,7 +88,16 @@ export default {
     }
   },
 
+  mounted() {
+    this.$nextTick(() => {
+      this.setFocus();
+    });
+  },
+
+
+
   methods: {
+
     filterAlapZsalu() {
       const { params } = this.$route;
       const { id } = params;
@@ -118,40 +128,56 @@ export default {
         this.filteredAlapzsalu = this.alapZsalu;
       }
     },
+    setFocus() {
+      const firstInput = document.querySelector('.card:first-child input');
+      if (firstInput) {
+        firstInput.focus();
+      }
+    },
+    focusNextInput(index) {
+      const nextInput = document.querySelectorAll('.card input')[index + 1];
+      if (nextInput) {
+        nextInput.focus();
+      }
+    },
+
+    watch: {
+
+      $route() {
+        this.filterAlapZsalu();
+      },
+
+
+
+      deleteAlapZsalu(id) {
+        console.log(id);
+        this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
+          (filteredAlapzsalu) => filteredAlapzsalu.id !== id,
+          localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu))
+        );
+      },
+
+      addAlapZsalu() {
+        router.push("/app/basis/create", item);
+        /* this.filteredAlapzsalu.push({
+          id: this.filteredAlapzsalu.length + 1,
+          szint: "colop",
+          tetel: "uj tétel",
+          mennyiseg: 0,
+          mertekegyseg: "m2",
+          anyagegysegar: 0,
+          dijegysegar: 0
+          */
+      },
+
+      addtask() {
+        localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu));
+      },
+    },
+
   },
-  watch: {
-    $route() {
-      this.filterAlapZsalu();
-    },
+}
 
-
-
-    deleteAlapZsalu(id) {
-      console.log(id);
-      this.filteredAlapzsalu = this.filteredAlapzsalu.filter(
-        (filteredAlapzsalu) => filteredAlapzsalu.id !== id,
-        localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu))
-      );
-    },
-
-    addAlapZsalu() {
-      router.push("/app/basis/create", item);
-      /* this.filteredAlapzsalu.push({
-        id: this.filteredAlapzsalu.length + 1,
-        szint: "colop",
-        tetel: "uj tétel",
-        mennyiseg: 0,
-        mertekegyseg: "m2",
-        anyagegysegar: 0,
-        dijegysegar: 0
-        */
-    },
-
-    addtask() {
-      localStorage.setItem("alapZsalu", JSON.stringify(this.filteredAlapzsalu));
-    },
-  },
-};
 
 </script>
 

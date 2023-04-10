@@ -27,8 +27,8 @@
               }}</b-card-title>
               <div class="col-9 v1">
                 <b-card-text class="col-2 v2">
-                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" :key="filteredAlapzsalu.id" 
-                  :class="{ 'bg-styl': filteredAlapzsalu.mennyiseg > 0 }"
+                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" :key="filteredAlapzsalu.id"
+                    :class="{ 'bg-styl': filteredAlapzsalu.mennyiseg > 0 }"
                     @keyup.enter="focusNextInput(filteredAlapzsalu.id)" />
                   {{ filteredAlapzsalu.mertekegyseg }}
                 </b-card-text>
@@ -134,10 +134,11 @@ export default {
         firstInput.focus();
       }
     },
-    focusNextInput(index) {
-      const nextInput = document.querySelectorAll('.card input')[index + 1];
-      if (nextInput) {
-        nextInput.focus();
+    focusNextInput(id) {
+      const index = this.filteredAlapzsalu.findIndex(item => item.id === id);
+      if (index >= 0 && index < this.filteredAlapzsalu.length - 1) {
+        const nextInputId = parseInt(this.filteredAlapzsalu[index + 1].id);
+        this.$refs[nextInputId][0].focus();
       }
     },
 
@@ -230,8 +231,8 @@ b-kard-title {
   margin: 10px;
 }
 
-.bg-styl{
-  background-color:royalblue;
+.bg-styl {
+  background-color: royalblue;
   color: black;
 }
 </style>

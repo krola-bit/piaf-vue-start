@@ -27,8 +27,8 @@
               }}</b-card-title>
               <div class="col-9 v1">
                 <b-card-text class="col-2 v2">
-                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" :key="filteredAlapzsalu.id" placeholder="0"
-                    :class="{ 'bg-success': filteredAlapzsalu.mennyiseg > 0 }"
+                  <b-form-input v-model="filteredAlapzsalu.mennyiseg" :key="filteredAlapzsalu.id" 
+                  :class="{ 'bg-styl': filteredAlapzsalu.mennyiseg > 0 }"
                     @keyup.enter="focusNextInput(filteredAlapzsalu.id)" />
                   {{ filteredAlapzsalu.mertekegyseg }}
                 </b-card-text>
@@ -228,5 +228,10 @@ b-kard-title {
 
 .btn-primary {
   margin: 10px;
+}
+
+.bg-styl{
+  background-color:royalblue;
+  color: black;
 }
 </style>
